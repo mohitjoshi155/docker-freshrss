@@ -1,22 +1,31 @@
 server {
-	listen 80;
-	listen 443 ssl;
-	index index.html index.htm index.php;
-	server_name _;
-	ssl_certificate /config/keys/cert.crt;
-	ssl_certificate_key /config/keys/cert.key;
-	client_max_body_size 0;
-	root /usr/share/webapps/freshrss/p;
-	index index.php index.html index.htm;
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    listen 443 ssl http2 default_server;
+    listen [::]:443 ssl http2 default_server;
 
-	location ~ ^.+?\.php(/.*)?$ {
-	fastcgi_pass 127.0.0.1:9000;
-	fastcgi_split_path_info ^(.+\.php)(/.+)$;
-	fastcgi_param PATH_INFO $fastcgi_path_info;
-	include /etc/nginx/fastcgi_params;
-	fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-	}
-	location / {
-		try_files $uri $uri/ index.php;
-	}
+    root /usr/share/webapps/freshrss/p;
+    index index.html index.htm index.php;
+
+    server_name _;
+
+    # all ssl related config moved to ssl.conf
+    include /config/nginx/ssl.conf;
+
+    client_max_body_size 0;
+
+    location / {
+        # enable the next two lines for http auth
+        #auth_basic "Restricted";
+        #auth_basic_user_file /config/nginx/.htpasswd;
+
+        try_files $uri $uri/ /index.html /index.php?$args =404;
+    }
+
+    location ~ \.php$ {
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php;
+        include /etc/nginx/fastcgi_params;
+    }
 }
