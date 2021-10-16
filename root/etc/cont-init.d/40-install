@@ -5,9 +5,10 @@ mkdir -p \
     /config/{crontabs,www/freshrss}
 
 # create symlinks
+ln -s /app/www/p /app/www/public
 symlinks=( \
-/usr/share/webapps/freshrss/data \
-/usr/share/webapps/freshrss/extensions )
+/app/www/public/data \
+/app/www/public/extensions )
 
 for i in "${symlinks[@]}"
 do
@@ -18,8 +19,8 @@ do
 done
 
 # backwards compatibility
-if grep -q 'root /config/www/freshrss/p;' /config/nginx/site-confs/default; then 
-    cp /defaults/default /config/nginx/site-confs/default
+if grep -q 'root /config/www/freshrss/p;' /config/nginx/site-confs/default.conf; then 
+    cp /defaults/default.conf /config/nginx/site-confs/default.conf
 fi
 
 # disable updates
@@ -33,5 +34,5 @@ cp /config/crontabs/root /etc/crontabs/root
 
 # permissions
 chown -R abc:abc \
-    /usr/share/webapps/freshrss \
+    /app/www/public \
     /config

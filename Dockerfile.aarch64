@@ -32,15 +32,15 @@ RUN \
     | awk '/tag_name/{print $4;exit}' FS='[""]'); \
   fi && \
   mkdir -p \
-    /usr/share/webapps/freshrss && \
+    /app/www/public && \
   curl -o \
     /tmp/freshrss.tar.gz -L \
     "https://github.com/FreshRSS/FreshRSS/archive/${FRESHRSS_RELEASE}.tar.gz" && \
   tar xf \
     /tmp/freshrss.tar.gz -C \
-    /usr/share/webapps/freshrss --strip-components=1 && \
+    /app/www/public --strip-components=1 && \
   sed -i "s|'disable_update' => false,|'disable_update' => true,|g" \
-    /usr/share/webapps/freshrss/config.default.php && \
+    /app/www/public/config.default.php && \
   echo "**** cleanup ****" && \
   rm -rf \
     /tmp/*
