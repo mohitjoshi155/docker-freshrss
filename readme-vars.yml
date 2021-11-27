@@ -52,7 +52,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
-  - { date: "14.10.21:", desc: "Rebasing to alpine 3.14. Use standard nginx.conf from lsio alpine nginx base image." }
+  - { date: "25.11.21:", desc: "Rebasing to alpine 3.14. Use standard nginx.conf from lsio alpine nginx base image." }
   - { date: "23.01.21:", desc: "Rebasing to alpine 3.13." }
   - { date: "01.06.20:", desc: "Rebasing to alpine 3.12." }
   - { date: "31.03.20:", desc: "Internalize app and enable updates for existing users, allow user customized crontab." }
