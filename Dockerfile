@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-alpine-nginx:3.14
+FROM ghcr.io/linuxserver/baseimage-alpine-nginx:3.15
 
 # set version label
 ARG BUILD_DATE
@@ -11,20 +11,20 @@ RUN \
   echo "**** install runtime packages ****" && \
   apk add --no-cache \
     curl \
-    php7-ctype \
-    php7-curl \
-    php7-dom \
-    php7-gmp \
-    php7-iconv \
-    php7-intl \
-    php7-mysqli \
-    php7-mysqlnd \
-    php7-pdo_mysql \
-    php7-pdo_pgsql \
-    php7-pdo_sqlite \
-    php7-pgsql \
-    php7-sqlite3 \
-    php7-zip \
+    php8-ctype \
+    php8-curl \
+    php8-dom \
+    php8-gmp \
+    php8-iconv \
+    php8-intl \
+    php8-mysqli \
+    php8-mysqlnd \
+    php8-pdo_mysql \
+    php8-pdo_pgsql \
+    php8-pdo_sqlite \
+    php8-pgsql \
+    php8-sqlite3 \
+    php8-zip \
     sqlite && \
   echo "**** install app ****" && \
   if [ -z ${FRESHRSS_RELEASE+x} ]; then \
